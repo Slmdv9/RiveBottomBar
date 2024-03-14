@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rive/rive.dart';
+import 'package:rive_bottonn_nav/RiveModel.dart';
 
 void main() {
   runApp(const BottonNavWithAnimatedIcons());
@@ -32,8 +34,21 @@ class _BottonNavWithAnimatedIconsState
                 BoxShadow(
                     color: bottonNavBgColor.withOpacity(0.3),
                     offset: const Offset(0, 20),
-                    blurRadius: 20)
+                    blurRadius: 20),
               ]),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+                bottomNavItems.length,
+                (index) => SizedBox(
+                      height: 36,
+                      width: 36,
+                      child: RiveAnimation.asset(
+                        bottomNavItems[index].src,
+                        artboard: bottomNavItems[index].artboard,
+                      ),
+                    )),
+          ),
         )),
       ),
     );
