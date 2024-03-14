@@ -18,6 +18,20 @@ class BottonNavWithAnimatedIcons extends StatefulWidget {
 
 class _BottonNavWithAnimatedIconsState
     extends State<BottonNavWithAnimatedIcons> {
+  List<SMIBool> riveIconInputs = [];
+  List<StateMachineController> controllers = [];
+  int selectedNavIndex = 0;
+
+  void riveOnInit(Artboard artboard, {required String stateMachineName}) {
+    StateMachineController? controller =
+        StateMachineController.fromArtboard(artboard, stateMachineName);
+
+    artboard.addController(controller!);
+    controllers.add(controller);
+
+    riveIconInputs.add(controller.findInput<bool>('active') as SMIBool);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +60,9 @@ class _BottonNavWithAnimatedIconsState
                       child: RiveAnimation.asset(
                         bottomNavItems[index].src,
                         artboard: bottomNavItems[index].artboard,
+                        onInit: (artboard) {
+                          //riveOnInit(artboard, stateMachineName: riveIcon.stateMachineName);
+                        },
                       ),
                     )),
           ),
